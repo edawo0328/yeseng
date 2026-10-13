@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예승건설(주) | YESEUNG CONSTRUCTION</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ys: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#083e44',
+                            dark: '#05292d',
+                            accent: '#9bc33a',
+                            accentHover: '#86ab2c'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Pretendard Webfont & FontAwesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            letter-spacing: -0.02em;
+        }
+        .page-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+        }
+        .page-view.active {
+            display: block;
+            opacity: 1;
+        }
+        .subtab-pane {
+            display: none;
+        }
+        .subtab-pane.active {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- TOP GLOBAL HEADER (창성종합건설 스타일 간결하고 격조 높은 GNB) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo (예승건설 공식 CI) -->
+            <a href="#home" onclick="navigateTo('home'); return false;" class="flex items-center gap-3.5 group cursor-pointer">
+                <div class="w-10 h-12 flex-shrink-0 relative transition-transform duration-300 group-hover:scale-105">
+                    <!-- 예승건설 정품 CI 로고 SVG -->
+                    <svg viewBox="0 0 100 135" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Teal Shield Base -->
+                        <path d="M4 4 H84 V90 Q84 130 44 130 Q4 130 4 90 Z" fill="#083e44"/>
+                        <!-- Lime Accent on Lower Right Edge -->
+                        <path d="M84 25 C92 48 97 80 81 122 C88 108 93 84 90 40 Z" fill="#9bc33a"/>
+                        <!-- YS Emblem In White -->
+                        <path d="M22 45 L42 75 L42 100 H54 L54 75 L74 45 H60 L48 64 L36 45 Z" fill="#ffffff"/>
+                        <path d="M64 74 C57 68 45 69 45 78 C45 86 62 84 62 95 C62 104 51 106 43 103 C41 102 40 105 40 109 C48 115 70 114 70 94 C70 82 52 83 52 77 C52 72 60 73 64 76 Z" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline gap-1.5">
+                        <span class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">예승건설</span>
+                        <span class="text-[11px] font-bold text-ys-800 bg-ys-50 border border-ys-200 px-1.5 py-0.5 rounded">주식회사</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase font-montserrat">YESEUNG CONSTRUCTION</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Tabs -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+                <button onclick="navigateTo('home')" data-nav="home" class="nav-btn px-4 py-2 text-[15px] font-bold text-ys-900 rounded-lg transition-all relative">
+                    홈
+                    <span class="indicator absolute bottom-0 left-4 right-4 h-0.5 bg-ys-900"></span>
+                </button>
+                <button onclick="navigateTo('about')" data-nav="about" class="nav-btn px-4 py-2 text-[15px] font-bold text-slate-700 hover:text-ys-900 rounded-lg transition-all relative">
+                    회사소개
+                    <span class="indicator absolute bottom-0 left-4 right-4 h-0.5 bg-ys-900 hidden"></span>
+                </button>
+                <button onclick="navigateTo('business')" data-nav="business" class="nav-btn px-4 py-2 text-[15px] font-bold text-slate-700 hover:text-ys-900 rounded-lg transition-all relative">
+                    사업분야
+                    <span class="indicator absolute bottom-0 left-4 right-4 h-0.5 bg-ys-900 hidden"></span>
+                </button>
+                <button onclick="navigateTo('projects')" data-nav="projects" class="nav-btn px-4 py-2 text-[15px] font-bold text-slate-700 hover:text-ys-900 rounded-lg transition-all relative">
+                    시공실적
+                    <span class="indicator absolute bottom-0 left-4 right-4 h-0.5 bg-ys-900 hidden"></span>
+                </button>
+                <button onclick="navigateTo('gallery')" data-nav="gallery" class="nav-btn px-4 py-2 text-[15px] font-bold text-slate-700 hover:text-ys-900 rounded-lg transition-all relative">
+                    현장갤러리
+                    <span class="indicator absolute bottom-0 left-4 right-4 h-0.5 bg-ys-900 hidden"></span>
+                </button>
+                <button onclick="navigateTo('contact')" data-nav="contact" class="nav-btn px-4 py-2 text-[15px] font-bold text-slate-700 hover:text-ys-900 rounded-lg transition-all relative">
+                    공사문의 / 오시는길
+                    <span class="indicator absolute bottom-0 left-4 right-4 h-0.5 bg-ys-900 hidden"></span>
+                </button>
+            </nav>
+
+            <!-- Quick Direct Call Button -->
+            <div class="hidden lg:flex items-center gap-3">
+                <a href="tel:031-334-1170" class="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
+                    <i class="fa-solid fa-phone text-ys-700"></i>
+                    <span>031-334-1170</span>
+                </a>
+                <button onclick="navigateTo('contact')" class="px-4 py-2 text-xs font-bold text-white bg-ys-900 hover:bg-ys-800 rounded-lg shadow-sm transition">
+                    견적 / 지명원 문의
+                </button>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="메뉴 열기">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white px-6 pt-3 pb-6 shadow-xl">
+            <div class="flex flex-col space-y-1">
+                <button onclick="navigateTo('home'); toggleMobileMenu()" class="text-left py-3 text-base font-bold text-slate-800 border-b border-slate-100">홈 (Home)</button>
+                <button onclick="navigateTo('about'); toggleMobileMenu()" class="text-left py-3 text-base font-bold text-slate-800 border-b border-slate-100">회사소개 (About)</button>
+                <button onclick="navigateTo('business'); toggleMobileMenu()" class="text-left py-3 text-base font-bold text-slate-800 border-b border-slate-100">사업분야 (Business)</button>
+                <button onclick="navigateTo('projects'); toggleMobileMenu()" class="text-left py-3 text-base font-bold text-slate-800 border-b border-slate-100">시공실적 (Projects)</button>
+                <button onclick="navigateTo('gallery'); toggleMobileMenu()" class="text-left py-3 text-base font-bold text-slate-800 border-b border-slate-100">현장갤러리 (Gallery)</button>
+                <button onclick="navigateTo('contact'); toggleMobileMenu()" class="text-left py-3 text-base font-bold text-slate-800 border-b border-slate-100">공사문의 / 오시는길 (Contact)</button>
+                <div class="pt-4 flex flex-col gap-2">
+                    <a href="tel:031-334-1170" class="flex items-center justify-center gap-2 py-3 bg-ys-900 text-white rounded-xl text-sm font-bold">
+                        <i class="fa-solid fa-phone"></i> 본사 031-334-1170
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER (PAGE VIEWS SWITCH HERE) -->
+    <main class="flex-grow pt-20">
+
+        <!-- ================= PAGE 1 : HOME (창성종합건설 스타일 간결한 메인) ================= -->
+        <section id="page-home" class="page-view active">
+            <!-- Hero Corporate Banner -->
+            <div class="relative bg-gradient-to-r from-ys-dark via-ys-900 to-slate-900 text-white min-h-[560px] sm:min-h-[620px] flex items-center overflow-hidden">
+                <div class="absolute inset-0 opacity-25">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=1920&q=80" alt="건설 인프라" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-ys-dark via-transparent to-black/40"></div>
+                <div class="absolute top-1/4 -right-20 w-96 h-96 bg-ys-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <div class="max-w-3xl space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs sm:text-sm font-semibold text-lime-300">
+                            <span class="w-2 h-2 rounded-full bg-lime-400 animate-ping"></span>
+                            믿음과 신뢰를 중시하는 전문건설 파트너
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
+                            혁신적인 기술과 건강한 경영으로<br/>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-white to-lime-300">더 나은 미래가치를 창조</span>합니다
+                        </h1>
+                        <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+                            예승건설(주)은 토공, 철근콘크리트, 교량, 하천 및 수자원 구조물 시공 등 국가 핵심 인프라 구축의 든든한 초석을 다지는 전문건설 기업입니다.
+                        </p>
+                        <div class="pt-4 flex flex-wrap gap-4">
+                            <button onclick="navigateTo('projects')" class="px-7 py-3.5 bg-ys-600 hover:bg-ys-500 text-white font-bold text-sm sm:text-base rounded-xl transition duration-300 shadow-lg shadow-teal-900/30 flex items-center gap-2.5">
+                                <span>주요 시공실적 보기</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                            <button onclick="navigateTo('about')" class="px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-bold text-sm sm:text-base rounded-xl transition duration-300">
+                                회사소개 바로가기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Bottom Stats Bar -->
+                <div class="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t border-white/10 py-4 hidden md:block">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-lime-400"></i>
+                            <span><strong>본사 소재지</strong>: 경기도 용인시 처인구 성산로 327-19, 1층 (단독 본사 체계)</span>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <span>대표전화: 031-334-1170</span>
+                            <span>팩스: 031-334-1180</span>
+                            <span class="text-lime-300 font-semibold">전문건설업 등록기업</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Section 1: 3대 핵심 가치 -->
+            <section class="py-20 bg-slate-50 border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-14">
+                        <span class="text-xs font-extrabold text-ys-700 uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-full border border-teal-200">CORE VALUE</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 tracking-tight">예승건설이 지켜나가는 원칙</h2>
+                        <p class="text-slate-500 text-sm mt-2">고객 만족과 안전을 최우선으로, 언제나 원칙에 부합하는 정밀 시공을 약속드립니다.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 hover:border-ys-700/60 hover:shadow-xl transition-all duration-300">
+                            <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl mb-6 font-bold">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">믿고 맡기는 신뢰 경영</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                투명하고 정직한 시공 관리와 철저한 공정 준수를 통해 발주처와 시공 파트너 모두에게 변함없는 신뢰를 제공합니다.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 hover:border-ys-700/60 hover:shadow-xl transition-all duration-300">
+                            <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl mb-6 font-bold">
+                                <i class="fa-solid fa-helmet-safety"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">철저한 안전 및 품질 관리</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                토목 특급/고급 전문 기술진의 상시 현장 배치로 무재해 시공을 지향하며, 엄격한 시방 기준에 따른 품질을 완성합니다.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 hover:border-ys-700/60 hover:shadow-xl transition-all duration-300">
+                            <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl mb-6 font-bold">
+                                <i class="fa-solid fa-diagram-project"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">기술 중심의 책임 시공</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                팽성대교 PSU 거더 가설, 평택브레인시티 교량 12개소 및 대규모 호안축조를 성공적으로 완수한 공학적 실행력을 갖추고 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Home Section 2: Call To Action (정돈된 브릿지 섹션) -->
+            <section class="py-16 bg-ys-900 text-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2 text-center md:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black">건설 프로젝트의 든든한 파트너를 찾으시나요?</h3>
+                        <p class="text-sm text-teal-100/80">예승건설(주)은 토공, 구조물, 교량 등 전문 건설 전 과정에서 최적의 해답을 제시합니다.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="navigateTo('business')" class="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl transition border border-white/20 whitespace-nowrap">
+                            사업분야 안내
+                        </button>
+                        <button onclick="navigateTo('contact')" class="px-6 py-3.5 bg-lime-400 hover:bg-lime-300 text-slate-950 font-extrabold text-sm rounded-xl transition shadow-md whitespace-nowrap">
+                            공사 및 지명원 문의하기
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- ================= PAGE 2 : 회사소개 (About Us) ================= -->
+        <section id="page-about" class="page-view">
+            <div class="relative bg-ys-dark text-white py-16 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-xs font-semibold text-teal-300 mb-2 flex items-center gap-2">
+                        <span>홈</span> <i class="fa-solid fa-chevron-right text-[9px] text-teal-400"></i> <span class="text-white">회사소개</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">회사소개</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">고객에게 고품격 감동을 드리는 건설 산업 전문 기업, 예승건설(주)입니다.</p>
+                </div>
+            </div>
+
+            <!-- Subtab Navigation Bar -->
+            <div class="border-b border-slate-200 bg-slate-50 sticky top-20 z-30">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto">
+                    <button onclick="switchSubTab('ceo')" data-subtab="ceo" class="subtab-btn active px-6 py-4 text-sm font-bold text-ys-900 border-b-2 border-ys-900 whitespace-nowrap">
+                        대표 인사말
+                    </button>
+                    <button onclick="switchSubTab('overview')" data-subtab="overview" class="subtab-btn px-6 py-4 text-sm font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+                        기업개요
+                    </button>
+                    <button onclick="switchSubTab('vision')" data-subtab="vision" class="subtab-btn px-6 py-4 text-sm font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+                        경영이념 & 비전
+                    </button>
+                    <button onclick="switchSubTab('engineers')" data-subtab="engineers" class="subtab-btn px-6 py-4 text-sm font-semibold text-slate-500 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+                        기술인력 현황
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subtab 1: CEO 인사말 -->
+            <div id="subtab-ceo" class="subtab-pane active py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-8 bg-ys-700 rounded-full"></span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">CEO Message</h3>
+                        </div>
+
+                        <div class="text-xl sm:text-2xl font-bold text-ys-900 leading-snug">
+                            "정직한 시공과 기술 혁신으로<br/>고객에게 고품격의 감동을 드리는 든든한 파트너가 되겠습니다."
+                        </div>
+
+                        <div class="space-y-5 text-slate-600 text-base leading-relaxed">
+                            <p>
+                                예승건설 주식회사의 홈페이지를 찾아주신 고객 및 협력사 임직원 여러분께 진심으로 감사드립니다.
+                            </p>
+                            <p>
+                                당사는 2018년 창립 이래 토공, 철근콘크리트, 교량, 하천 및 수자원 구조물 시공 등 전문건설 분야에서 끊임없는 기술적 고민과 숙련된 기술력을 축적해 왔습니다. 체계적인 공정관리, 철저한 품질관리 및 무재해 안전관리를 통해 새로운 건설 환경에 부합하는 건강하고 탄탄한 전문 기업으로 성장하고 있습니다.
+                            </p>
+                            <p>
+                                팽성대교 PSU 거더 확장공사, 평택 브레인시티 일반산단 내 주요 차도교량 12개소 신설 및 총 연장 4.8km에 달하는 대규모 호안 축조 등 고난도 공정을 완벽하게 수행하며 공학적 신뢰를 입증해 왔습니다.
+                            </p>
+                            <p>
+                                앞으로도 저희 예승건설(주) 전 임직원은 현장의 안전을 최우선 가치로 삼고, 원칙과 기준에 충실한 정밀 시공으로 고객 여러분께 최고의 결과물과 감동을 드릴 것을 약속드립니다. 변함없는 지도와 따뜻한 성원을 부탁드립니다.
+                            </p>
+                            <p class="font-semibold text-slate-800">
+                                감사합니다.
+                            </p>
+                        </div>
+
+                        <div class="pt-8 border-t border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 font-semibold uppercase">예승건설 주식회사 대표이사</span>
+                                <div class="text-2xl font-black text-slate-900 mt-1">김 예 지</div>
+                            </div>
+                            <div class="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-ys-800 text-2xl font-black shadow-sm">
+                                <i class="fa-solid fa-stamp"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subtab 2: 기업개요 & 조직도 -->
+            <div id="subtab-overview" class="subtab-pane py-16">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    <!-- 기본 개요 테이블 -->
+                    <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+                        <div class="px-8 py-6 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-extrabold text-slate-900">회사 개요 (Company Profile)</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">예승건설(주)의 법인 등록 및 인허가 현황입니다.</p>
+                            </div>
+                            <span class="text-xs font-bold text-ys-800 bg-ys-100 px-3 py-1 rounded-full border border-ys-200">공식 등록 법인</span>
+                        </div>
+                        <div class="divide-y divide-slate-100 text-sm">
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-white">
+                                <div class="font-bold text-slate-500">회사명</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900">예승건설 주식회사 (YESEUNG CONSTRUCTION CO., LTD.)</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-slate-50/50">
+                                <div class="font-bold text-slate-500">대표이사</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900">김예지</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-white">
+                                <div class="font-bold text-slate-500">설립일자</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900">2018년 10월 18일</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-slate-50/50">
+                                <div class="font-bold text-slate-500">사업자등록번호</div>
+                                <div class="sm:col-span-3 font-mono font-bold text-slate-900">578-86-01170</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-white">
+                                <div class="font-bold text-slate-500">자본금</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900">380,000,000원 (3억 8천만원)</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-slate-50/50">
+                                <div class="font-bold text-slate-500">본사 소재지</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900 flex items-center flex-wrap gap-2">
+                                    <span>경기도 용인시 처인구 성산로 327-19, 1층</span>
+                                    <span class="text-[11px] text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded border border-teal-200 font-bold">지사 없는 단독 본사 체계</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-white">
+                                <div class="font-bold text-slate-500">대표 연락처</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900">
+                                    TEL: 031-334-1170 &nbsp;|&nbsp; FAX: 031-334-1180 &nbsp;|&nbsp; E-MAIL: ysys01170@naver.com
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 px-8 py-4.5 bg-slate-50/50">
+                                <div class="font-bold text-slate-500">주요 면허 및 업종</div>
+                                <div class="sm:col-span-3 font-semibold text-slate-900 leading-relaxed">
+                                    지반조성공사업, 토공사업, 포장공사업, 철근콘크리트공사업, 도장·습식·방수·석공사업
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 조직도 카드 -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <h4 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-sitemap text-ys-700"></i>
+                                <span>조직 구성 (Organization Chart)</span>
+                            </h4>
+                            <span class="text-xs text-slate-400">대표이사 중심 책임경영 체계</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-center">
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-ys-700/50 transition">
+                                <div class="w-12 h-12 mx-auto rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center font-bold mb-3 text-lg">
+                                    <i class="fa-solid fa-compass"></i>
+                                </div>
+                                <div class="font-extrabold text-slate-900 text-base">기획팀</div>
+                                <p class="text-xs text-slate-500 mt-1">공사 기획, 원가 분석 및 견적 수급</p>
+                            </div>
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-ys-700/50 transition">
+                                <div class="w-12 h-12 mx-auto rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center font-bold mb-3 text-lg">
+                                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                                </div>
+                                <div class="font-extrabold text-slate-900 text-base">공사관리팀</div>
+                                <p class="text-xs text-slate-500 mt-1">현장 공정 총괄, 장비 및 자재 수급</p>
+                            </div>
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-ys-700/50 transition">
+                                <div class="w-12 h-12 mx-auto rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center font-bold mb-3 text-lg">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div class="font-extrabold text-slate-900 text-base">현장안전관리팀</div>
+                                <p class="text-xs text-slate-500 mt-1">품질검측, 안전보건 및 무재해 관리</p>
+                            </div>
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-ys-700/50 transition">
+                                <div class="w-12 h-12 mx-auto rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center font-bold mb-3 text-lg">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <div class="font-extrabold text-slate-900 text-base">경영관리팀</div>
+                                <p class="text-xs text-slate-500 mt-1">재무·회계, 노무 및 인허가 행정</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subtab 3: 경영이념 & 비전 -->
+            <div id="subtab-vision" class="subtab-pane py-16">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    <div class="text-center max-w-2xl mx-auto">
+                        <span class="text-xs font-extrabold text-ys-700 uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-full border border-teal-200">OUR PHILOSOPHY</span>
+                        <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mt-3">신뢰와 기술로 세우는 미래 가치</h3>
+                        <p class="text-slate-500 text-sm mt-2">원칙 중심의 정도 경영으로 발주처와 함께 상생하는 미래를 만들어갑니다.</p>
+                    </div>
+
+                    <!-- 3대 핵심 전략 -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm hover:border-ys-700/50 transition">
+                            <span class="text-xs font-bold text-ys-700 bg-ys-50 border border-ys-200 px-3 py-1 rounded-lg">STRATEGY 01</span>
+                            <h4 class="text-xl font-bold text-slate-900 mt-5 mb-2">열정적인 인재 육성</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                숙련된 전문 기술진의 역량을 강화하고 상시 안전·품질 직무 교육을 통해 현장 중심의 실행력을 극대화합니다.
+                            </p>
+                        </div>
+                        <div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm hover:border-ys-700/50 transition">
+                            <span class="text-xs font-bold text-ys-700 bg-ys-50 border border-ys-200 px-3 py-1 rounded-lg">STRATEGY 02</span>
+                            <h4 class="text-xl font-bold text-slate-900 mt-5 mb-2">변화와 혁신의 경영</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                급변하는 건설 트렌드에 발맞추어 고효율 공법과 선진 안전관리 시스템을 선제적으로 도입하여 생산성을 혁신합니다.
+                            </p>
+                        </div>
+                        <div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm hover:border-ys-700/50 transition">
+                            <span class="text-xs font-bold text-ys-700 bg-ys-50 border border-ys-200 px-3 py-1 rounded-lg">STRATEGY 03</span>
+                            <h4 class="text-xl font-bold text-slate-900 mt-5 mb-2">최상의 가치 창출</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                철저한 공기 준수와 결점 없는 정밀 시공을 통해 발주처와 지역 사회가 모두 만족하는 감동의 가치를 완성합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 기업의 실천 목표 3선 -->
+                    <div class="bg-gradient-to-r from-ys-dark to-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-md">
+                        <h4 class="text-lg font-bold text-teal-300 mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <span>예승건설의 실천 목표 (Action Goals)</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                            <div class="border-l-2 border-teal-400 pl-4 space-y-1">
+                                <div class="font-bold text-white text-base">믿고 맡기는 신뢰 경영</div>
+                                <p class="text-slate-300 text-xs leading-relaxed">정직한 자재 사용과 투명한 공정 관리로 발주처와의 굳건한 신뢰 형성</p>
+                            </div>
+                            <div class="border-l-2 border-lime-400 pl-4 space-y-1">
+                                <div class="font-bold text-white text-base">치우침 없는 공정 경영</div>
+                                <p class="text-slate-300 text-xs leading-relaxed">모든 협력업체 및 근로자와의 상생 협력을 바탕으로 건강하고 공정한 현장 조성</p>
+                            </div>
+                            <div class="border-l-2 border-teal-400 pl-4 space-y-1">
+                                <div class="font-bold text-white text-base">앞서 나가는 혁신 경영</div>
+                                <p class="text-slate-300 text-xs leading-relaxed">구조물 해석 능력과 풍부한 현장 데이터를 결합한 최적의 공학적 솔루션 구현</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subtab 4: 기술인력 현황 -->
+            <div id="subtab-engineers" class="subtab-pane py-16">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                    <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+                        <div class="px-8 py-6 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <h3 class="text-xl font-extrabold text-slate-900">기술자격 취득자 현황 (Technicians)</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">공식 공사지명원 등재 공인 전문 기술자격 보유자 명단입니다.</p>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="px-3 py-1 bg-red-50 text-red-700 font-bold rounded-lg border border-red-200">특급 3명</span>
+                                <span class="px-3 py-1 bg-amber-50 text-amber-700 font-bold rounded-lg border border-amber-200">고급 1명</span>
+                                <span class="px-3 py-1 bg-teal-50 text-teal-700 font-bold rounded-lg border border-teal-200">중·초급 4명</span>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600">
+                                <thead class="bg-slate-100/70 text-slate-800 text-xs uppercase font-bold border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-4 px-6 text-center w-16">No.</th>
+                                        <th class="py-4 px-6">성명</th>
+                                        <th class="py-4 px-6">종목 및 자격 분야</th>
+                                        <th class="py-4 px-6 text-center">보유 등급</th>
+                                        <th class="py-4 px-6">담당 핵심 직무</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 font-medium">
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">1</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">손태영</td>
+                                        <td class="py-3.5 px-6">토목</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-blue-50 text-blue-700 font-bold border border-blue-200">토목 중급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">현장 공정 총괄 및 자재 장비 배치 관리</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">2</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">조현준</td>
+                                        <td class="py-3.5 px-6">토목</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-amber-50 text-amber-700 font-bold border border-amber-200">토목 고급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">토목 구조 설계 검토 및 기술 검측</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">3</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">정정철</td>
+                                        <td class="py-3.5 px-6">토목</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-slate-100 text-slate-700 font-bold border border-slate-200">토목 초급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">현장 시공 실무 및 시공 기록 관리</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">4</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">정형진</td>
+                                        <td class="py-3.5 px-6">토목</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-red-50 text-red-700 font-bold border border-red-200">토목 특급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">교량 및 대형 콘크리트 구조물 시공 기술 총괄</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">5</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">김철웅</td>
+                                        <td class="py-3.5 px-6">토목 / 품질관리</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-slate-100 text-slate-700 font-bold border border-slate-200">토목/품질 초급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">공정별 품질 검사 및 자재 품질 시험 관리</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">6</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">최형일</td>
+                                        <td class="py-3.5 px-6">토목</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-slate-100 text-slate-700 font-bold border border-slate-200">토목 초급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">현장 안전 수칙 점검 및 시공 지원</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">7</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">이석행</td>
+                                        <td class="py-3.5 px-6">토목 / 품질관리</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-red-50 text-red-700 font-bold border border-red-200">토목/품질 특급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">품질관리계획서 수립 및 구조물 최종 검측 총괄</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/80">
+                                        <td class="py-3.5 px-6 text-center text-slate-400 font-mono">8</td>
+                                        <td class="py-3.5 px-6 font-bold text-slate-900">김재구</td>
+                                        <td class="py-3.5 px-6">토목 / 안전관리</td>
+                                        <td class="py-3.5 px-6 text-center"><span class="px-2.5 py-1 rounded text-xs bg-red-50 text-red-700 font-bold border border-red-200">토목/안전 특급</span></td>
+                                        <td class="py-3.5 px-6 text-slate-600">산업안전보건 및 위험성 평가, 무재해 관리 총괄</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3 : 사업분야 (Business Areas) - 텍스트 설명 중심 ================= -->
+        <section id="page-business" class="page-view">
+            <div class="relative bg-ys-dark text-white py-16 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-xs font-semibold text-teal-300 mb-2 flex items-center gap-2">
+                        <span>홈</span> <i class="fa-solid fa-chevron-right text-[9px] text-teal-400"></i> <span class="text-white">사업분야</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">사업분야</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">고난도 토목 기술력과 전문 건설 면허를 바탕으로 안전하고 견고한 도시 인프라를 건설합니다.</p>
+                </div>
+            </div>
+
+            <div class="py-20 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- 사업분야 안내 서두 요약 -->
+                    <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="space-y-2">
+                            <span class="text-xs font-extrabold text-ys-700 uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-full border border-teal-200">CORE BUSINESS</span>
+                            <h3 class="text-2xl font-black text-slate-900 mt-2">전문건설업 면허 기반의 4대 핵심 사업 영역</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed max-w-3xl">
+                                예승건설(주)은 토공사업, 철근콘크리트공사업, 포장공사업, 도장·습식·방수·석공사업 등 전문 면허를 체계적으로 보유하고 있으며, 
+                                특급·고급 전문 기술진의 철저한 공정 및 안전 관리하에 정밀 시공을 수행합니다.
+                            </p>
+                        </div>
+                        <div class="flex-shrink-0 bg-teal-50 border border-teal-200 rounded-2xl p-5 text-center min-w-[200px]">
+                            <div class="text-xs font-bold text-teal-700">보유 기술 인력</div>
+                            <div class="text-2xl font-black text-ys-900 mt-0.5">토목 전문 8인</div>
+                            <div class="text-[11px] text-slate-500 mt-1">특급 3인 · 고급 1인 보유</div>
+                        </div>
+                    </div>
+
+                    <!-- 4대 사업분야 설명 그리드 (사진 배제, 정돈된 공학적 설명 중심) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Area 1: 토공 및 지반조성공사 -->
+                        <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-ys-700/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                            <div class="space-y-5">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl font-bold">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-ys-800 bg-ys-100 px-3 py-1 rounded-full">지반조성 · 토공</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-black text-slate-900">토공사 및 지반조성공사</h3>
+                                    <p class="text-xs font-semibold text-teal-700 mt-1">Earthwork & Ground Improvement Engineering</p>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    산업단지 및 대규모 택지 부지 정지, 절토·성토 공사, 지하 굴착에 따른 흙막이 가시설(H-Pile, 토류판, CIP) 시공 및 연약지반 개량을 전문적으로 수행합니다. 정밀한 토량 산정과 공정 간 간섭 최소화로 안전한 기초 지반을 확립합니다.
+                                </p>
+
+                                <div class="pt-4 border-t border-slate-100 space-y-2">
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">주요 수행 공종</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>산업단지·공장부지 대규모 절·성토 및 정지 공사</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>지하 굴착 흙막이 가시설(H-Pile, CIP, 어스앵커, 스트럿)</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>자립식 옹벽, 보강토 옹벽 및 사면 안정화 토공</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Area 2: 철근콘크리트 및 교량공사 -->
+                        <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-ys-700/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                            <div class="space-y-5">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl font-bold">
+                                        <i class="fa-solid fa-bridge"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-ys-800 bg-ys-100 px-3 py-1 rounded-full">구조물 · 교량</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-black text-slate-900">철근콘크리트 및 교량공사</h3>
+                                    <p class="text-xs font-semibold text-teal-700 mt-1">Reinforced Concrete & Bridge Engineering</p>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    팽성대교 PSU 거더 확장공사, 평택 브레인시티 차도12교 신설, 수상/해상 교각 가설(일로~시종 P9) 등 대형 교량 하부공과 상부 슬래브를 정밀 시공합니다. 특급 토목 기술진의 엄격한 철근 배근 및 콘크리트 양생 관리를 통해 구조적 내구성을 극대화합니다.
+                                </p>
+
+                                <div class="pt-4 border-t border-slate-100 space-y-2">
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">주요 수행 공종</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>PSU 거더교, 강합성교 및 장경간 도로교량 가설</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>산업단지 내부 간선 차도교 및 소하천 횡단 라멘교</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>대형 암거(Box Culvert), 지하차도 및 콘크리트 구조물 일체</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Area 3: 하천호안공 및 방재시설 -->
+                        <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-ys-700/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                            <div class="space-y-5">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl font-bold">
+                                        <i class="fa-solid fa-water"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-ys-800 bg-ys-100 px-3 py-1 rounded-full">수자원 · 하천호안</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-black text-slate-900">하천호안공 및 유수지 방재시설</h3>
+                                    <p class="text-xs font-semibold text-teal-700 mt-1">River Revetment & Retention Basin Facilities</p>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    도일천(2,735m)과 상리천(2,060m) 대규모 호안 축조 및 방재 유수지 5개소, 친환경 하수종말처리장 토목공사를 완수한 실적을 보유하고 있습니다. 홍수 및 폭우 피해를 원천 차단하고 수변 생태계를 보전하는 지속 가능한 친환경 수자원 구조물을 구축합니다.
+                                </p>
+
+                                <div class="pt-4 border-t border-slate-100 space-y-2">
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">주요 수행 공종</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>지방하천 및 소하천 제방축조, 식생 매트 및 생태블록 호안공</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>집중호우 대비 유수지(1~5호) 토공, 유입·유출 암거 및 배수문</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>하수종말처리시설 토목 구조물 및 침수 예방 방재 인프라</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Area 4: 포장, 도장, 석공사 및 보행통로 -->
+                        <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-ys-700/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                            <div class="space-y-5">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-14 h-14 rounded-2xl bg-teal-50 text-ys-800 flex items-center justify-center text-2xl font-bold">
+                                        <i class="fa-solid fa-road"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-ys-800 bg-ys-100 px-3 py-1 rounded-full">포장 · 마감 · 보행통로</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-black text-slate-900">포장 · 도장 · 석공사 및 보행시설</h3>
+                                    <p class="text-xs font-semibold text-teal-700 mt-1">Pavement, Finishing & Pedestrian Structures</p>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    용인 보평역 보행연결통로 설치공사(24.4억원), 간선 및 지선 도로 아스콘·투수콘 포장, 지하차도 및 옹벽 방수·도장, 외부 석공사를 통해 견고하고 쾌적한 도시 기반을 완성합니다. 정밀한 단차 시공과 규격 자재 준수로 보행자 및 차량 통행의 안전성을 보장합니다.
+                                </p>
+
+                                <div class="pt-4 border-t border-slate-100 space-y-2">
+                                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">주요 수행 공종</h4>
+                                    <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>역세권 보행 연결통로 및 입체 인도교 구조물 설치</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>간선도로, 단지내 도로 아스팔트 콘크리트 및 투수블록 포장</span></li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-ys-600 mt-0.5"></i> <span>토목 구조물 도장, 습식 방수공사 및 외벽·옹벽 석공사</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4 : 시공실적 (Projects Table & Track Record) - 갤러리 분리 ================= -->
+        <section id="page-projects" class="page-view">
+            <div class="relative bg-ys-dark text-white py-16 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-xs font-semibold text-teal-300 mb-2 flex items-center gap-2">
+                        <span>홈</span> <i class="fa-solid fa-chevron-right text-[9px] text-teal-400"></i> <span class="text-white">시공실적</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">시공실적</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">창립 이래 축적해 온 예승건설(주)의 주요 공사 수주 및 수행 실적 데이터입니다.</p>
+                </div>
+            </div>
+
+            <div class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    <!-- 상단 실적 요약 카드 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">대표 교량 실적</span>
+                            <div class="text-2xl sm:text-3xl font-black text-ys-900 mt-2">팽성대교 53억</div>
+                            <p class="text-xs text-slate-500 mt-1">PSU 거더교 확장공사 완공</p>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">최대 하천호안 연장</span>
+                            <div class="text-2xl sm:text-3xl font-black text-ys-900 mt-2">총 4,795M</div>
+                            <p class="text-xs text-slate-500 mt-1">도일천 2,735m · 상리천 2,060m</p>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">산단 교량 인프라</span>
+                            <div class="text-2xl sm:text-3xl font-black text-ys-900 mt-2">차량교 12개소</div>
+                            <p class="text-xs text-slate-500 mt-1">평택브레인시티 단지내 차도교</p>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">현장 사진 보기</span>
+                            <div class="mt-2">
+                                <button onclick="navigateTo('gallery')" class="px-4 py-2 bg-ys-900 hover:bg-ys-800 text-white font-bold text-xs rounded-xl transition shadow">
+                                    현장갤러리 바로가기 <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-1.5">드론 항공촬영 및 시공사진</p>
+                        </div>
+                    </div>
+
+                    <!-- 실적 데이터 표 본문 -->
+                    <div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                            <div>
+                                <h3 class="text-xl font-extrabold text-slate-900">주요 공사 수행 실적 목록</h3>
+                                <p class="text-xs text-slate-500 mt-1">공식 지명원 등재 주요 공사 현황 (단위: 천원)</p>
+                            </div>
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg">
+                                <i class="fa-solid fa-file-invoice mr-1 text-ys-700"></i> 검증된 원도급·발주처 계약 실적
+                            </span>
+                        </div>
+
+                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm text-slate-600">
+                                    <thead class="bg-slate-50 text-slate-800 text-xs font-bold uppercase border-b border-slate-200">
+                                        <tr>
+                                            <th class="py-4 px-6">공사명</th>
+                                            <th class="py-4 px-6">공종</th>
+                                            <th class="py-4 px-6">공사기간</th>
+                                            <th class="py-4 px-6 text-right">계약금액(원)</th>
+                                            <th class="py-4 px-6">발주처 / 원도급사</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 font-medium">
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">덕성리448 공장부지 조성 구조물공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">구조물</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2025.04 ~ 진행</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">6,950,000,000</td>
+                                            <td class="py-3.5 px-6">㈜창성종합건설</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">팽성대교 확장공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-800 font-bold">교량</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2020.03 ~ 2023.11</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">5,300,000,000</td>
+                                            <td class="py-3.5 px-6">삼우건설(주)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">평택브레인시티 일반산단 하천공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-emerald-50 text-emerald-800 font-bold">하천호안</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2020.05 ~ 완공</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">5,100,000,000</td>
+                                            <td class="py-3.5 px-6">중흥토건(주)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">연천 도시환경(주) 폐기물증설 토목공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">토목</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2023.10 ~ 완공</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">4,800,000,000</td>
+                                            <td class="py-3.5 px-6">㈜창성종합건설</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">평택브레인시티 2단계 차도12교 설치공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-800 font-bold">교량</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2025.04 ~ 진행</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">4,056,000,000</td>
+                                            <td class="py-3.5 px-6">중흥토건㈜</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">이매동 타운하우스 신축공사 중 토목공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">토목</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2021.02 ~ 2023.09</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">2,900,000,000</td>
+                                            <td class="py-3.5 px-6">㈜다올종합건설</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">평택브레인시티 일반산단 도시시설물공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-cyan-50 text-cyan-800 font-bold">도시시설물</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2020.05 ~ 완공</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">2,800,000,000</td>
+                                            <td class="py-3.5 px-6">중흥토건(주)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">용인 보평역 연결통로 설치 토공·구조물</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-indigo-50 text-indigo-800 font-bold">보행통로</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2026.04 ~ 진행</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">2,442,000,000</td>
+                                            <td class="py-3.5 px-6">㈜창성종합건설</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">부산진해 명지지구 조경 3-1공구 교량공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-800 font-bold">교량</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2024.08 ~ 진행</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">1,720,000,000</td>
+                                            <td class="py-3.5 px-6">LH 부산울산지역본부</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">모래내 풍수해지구 종합정비 토공사(가시설)</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">토공</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2025.01 ~ 진행</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">1,611,690,000</td>
+                                            <td class="py-3.5 px-6">㈜토원건설</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">용인 역북초중통합학교 부지공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">부지조성</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2023.06 ~ 2024.01</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">1,350,000,000</td>
+                                            <td class="py-3.5 px-6">㈜창성종합건설</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">용인도시계획시설 조성공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">도시계획</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2023.09 ~ 2024.01</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">1,347,000,000</td>
+                                            <td class="py-3.5 px-6">역북지역 주택조합</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">동춘동 서해그랑블 공동주택 자립식옹벽공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800 font-bold">옹벽</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2023.03 ~ 2023.12</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">978,000,000</td>
+                                            <td class="py-3.5 px-6">㈜대영BNB</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/70">
+                                            <td class="py-3.5 px-6 font-bold text-slate-900">일로-시종 지역간 연계도로 암거공사</td>
+                                            <td class="py-3.5 px-6"><span class="px-2 py-0.5 rounded text-xs bg-teal-50 text-teal-800 font-bold">교량/암거</span></td>
+                                            <td class="py-3.5 px-6 text-slate-500">2024.12 ~ 진행</td>
+                                            <td class="py-3.5 px-6 text-right font-mono font-bold text-slate-900">889,900,000</td>
+                                            <td class="py-3.5 px-6">쌍용건설㈜</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 5 : 현장갤러리 (독립 갤러리 뷰어) ================= -->
+        <section id="page-gallery" class="page-view">
+            <div class="relative bg-ys-dark text-white py-16 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-xs font-semibold text-teal-300 mb-2 flex items-center gap-2">
+                        <span>홈</span> <i class="fa-solid fa-chevron-right text-[9px] text-teal-400"></i> <span class="text-white">현장갤러리</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">현장갤러리</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">드론 항공 촬영 및 현장 시공 기록 사진을 고화질로 확인하실 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="py-12 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Gallery Filter Bar -->
+                    <div class="flex flex-wrap gap-2.5 mb-10 justify-center">
+                        <button data-filter="all" class="pfilter-btn active px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-ys-900 text-white transition shadow-sm">
+                            전체 현장 (All)
+                        </button>
+                        <button data-filter="bridge" class="pfilter-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">
+                            교량 및 도로구조물
+                        </button>
+                        <button data-filter="river" class="pfilter-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">
+                            호안공 및 하천정비
+                        </button>
+                        <button data-filter="basin" class="pfilter-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">
+                            유수지 및 방재시설
+                        </button>
+                        <button data-filter="urban" class="pfilter-btn px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">
+                            보행통로 및 연계도로
+                        </button>
+                    </div>
+
+                    <!-- Gallery Cards Grid (현장사진 PDF 수록 현장들) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsContainer">
+                        <!-- Card 1: 팽성대교 확장공사 PSU 거더교 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="bridge">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('팽성대교 확장공사 PSU 거더교', '팽성대교 확장공사 (1개소)', '발주/원도급: 삼우건설(주) | 공사금액: 53억원', 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=800&q=80" alt="팽성대교" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=팽성대교+확장공사'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-ys-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">교량공</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">PSU 거더교 확장공사</span>
+                                    <h4 class="text-lg font-bold">팽성대교 확장공사 (1개소)</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-bridge mr-1 text-ys-700"></i>대형 거더 가설</span>
+                                <span class="font-bold text-slate-800">53억원 완공</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: 평택브레인시티 차량 1교 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="bridge">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('평택브레인시티 차량1교', '평택브레인시티 일반산단 주진입 교량', '발주/원도급: 중흥토건(주) | 차량교 12개소 중 1교', 'https://images.unsplash.com/photo-1584463699042-3a2588f9a941?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1584463699042-3a2588f9a941?auto=format&fit=crop&w=800&q=80" alt="평택브레인시티 차량1교" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=평택브레인시티+차량1교'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-ys-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">교량공</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">브레인시티 산단 인프라</span>
+                                    <h4 class="text-lg font-bold">평택브레인시티 차량1교</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-drone mr-1 text-ys-700"></i>드론 항공 촬영</span>
+                                <span class="font-bold text-slate-800">차량교 12개소</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: 평택브레인시티 차량 5~6교 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="bridge">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('평택브레인시티 차량5~6교', '대로변 및 하천 교차부 입체형 차도교량', '발주/원도급: 중흥토건(주) | 고난도 교차로 교량 시공', 'https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&w=800&q=80" alt="차량5~6교" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=평택브레인시티+차량5~6교'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-ys-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">교량공</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">교차로 연계 교량</span>
+                                    <h4 class="text-lg font-bold">평택브레인시티 차량5~6교</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-road mr-1 text-ys-700"></i>입체 교차 구조물</span>
+                                <span class="font-bold text-slate-800">정밀 시공</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: 상리천 호안공 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="river">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('평택브레인시티 호안공 상리천', '산단 관통 생태 하천 호안공 2,060m 축조', '중흥토건(주) 하천공사 완료', 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" alt="상리천 호안공" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=호안공+상리천+2060M'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-emerald-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">호안공</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">연장 2,060M 친수정비</span>
+                                    <h4 class="text-lg font-bold">호안공 상리천 (2,060M)</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-water mr-1 text-emerald-700"></i>생태 호안축조</span>
+                                <span class="font-bold text-slate-800">2,060M</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: 도일천 호안공 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="river">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('평택브레인시티 호안공 도일천', '지방하천 도일천 2,735m 치수 및 제방 호안 조성', '중흥토건(주) 하천공사 완료', 'https://images.unsplash.com/photo-1498084393753-b411b2d26b34?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1498084393753-b411b2d26b34?auto=format&fit=crop&w=800&q=80" alt="도일천 호안공" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=호안공+도일천+2735M'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-emerald-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">호안공</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">연장 2,735M 제방축조</span>
+                                    <h4 class="text-lg font-bold">호안공 도일천 (2,735M)</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-water mr-1 text-emerald-700"></i>치수 및 수변공원</span>
+                                <span class="font-bold text-slate-800">2,735M</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: 유수지 5개소 및 하수종말처리장 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="basin">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('평택브레인시티 유수지 5개소 및 하수종말처리장', '침수 예방 방재 유수지 5개소 및 환경기초시설', '도시시설물 및 친환경 방재시설 완료', 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80" alt="유수지 5개소" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=유수지+5개소+하수처리장'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-cyan-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">방재시설</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">도시 방재 인프라</span>
+                                    <h4 class="text-lg font-bold">유수지 5개소 · 하수처리장</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-shield-virus mr-1 text-cyan-700"></i>재해 예방 시설</span>
+                                <span class="font-bold text-slate-800">5개소 완공</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 7: 일로~시종 연계도로 교량공 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="urban">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('일로~시종 지역간 연계도로 교량공', '수상 교각 P9 및 상부 슬래브 가설공사', '쌍용건설(주) 원도급 / 암거 및 교량공사', 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=800&q=80" alt="일로 시종 교량공" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=일로~시종+교량공'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-slate-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">연계도로</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">지역간 연계 인프라</span>
+                                    <h4 class="text-lg font-bold">일로~시종 연계도로 교량공</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-water mr-1 text-slate-700"></i>수중 교각 P9 가설</span>
+                                <span class="font-bold text-slate-800">진행중</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 8: 용인 보평역 보행통로 설치공사 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="urban">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('용인 보평역 보행통로 설치공사', '에버라인 보평역 인근 주민 편의 보행연결통로', '㈜창성종합건설 원도급 / 토공사 및 구조물공사 (24.4억원)', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="보평역 보행통로" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=용인+보평역+보행통로'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-slate-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">보행통로</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">용인 처인구 관내</span>
+                                    <h4 class="text-lg font-bold">용인 보평역 보행통로 설치공사</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-person-walking mr-1 text-slate-700"></i>역세권 보행 연결통로</span>
+                                <span class="font-bold text-slate-800">24.4억원</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 9: 평택브레인시티 차도12교 -->
+                        <div class="proj-card group rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-2xl transition duration-300" data-cat="bridge">
+                            <div class="h-64 overflow-hidden relative cursor-pointer" onclick="openPhotoModal('평택브레인시티 2단계 차도12교 설치공사', '브레인시티 2단계 조성공사 중 광폭 차도교량 신설', '중흥토건㈜ 원도급 / 공사금액 40.5억원', 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=800&q=80" alt="차도12교" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/0c4a4e/ffffff?text=차도12교+설치공사'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute top-4 left-4 bg-ys-700 text-white text-[11px] font-bold px-3 py-1 rounded-md shadow">교량공</span>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <span class="text-xs text-lime-300 font-semibold">2단계 산단 메인축</span>
+                                    <h4 class="text-lg font-bold">평택브레인시티 차도12교</h4>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-between items-center text-xs text-slate-500 bg-white">
+                                <span><i class="fa-solid fa-truck mr-1 text-ys-700"></i>대형 물류 하중 설계</span>
+                                <span class="font-bold text-slate-800">40.5억원</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 6 : 공사문의 / 오시는길 (Contact Us) ================= -->
+        <section id="page-contact" class="page-view">
+            <div class="relative bg-ys-dark text-white py-16 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-xs font-semibold text-teal-300 mb-2 flex items-center gap-2">
+                        <span>홈</span> <i class="fa-solid fa-chevron-right text-[9px] text-teal-400"></i> <span class="text-white">공사문의 / 오시는길</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">공사문의 및 오시는 길</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">용인 본사 안내 및 견적·시공 의뢰 상담 창구입니다.</p>
+                </div>
+            </div>
+
+            <div class="py-20 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-12 h-12 rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center text-xl mb-4 font-bold">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900">전화 상담</h3>
+                            <p class="text-xs text-slate-500 mt-1 mb-4">평일 08:30 ~ 18:00 (점심시간 12:00~13:00)</p>
+                            <a href="tel:031-334-1170" class="text-xl font-black text-ys-900 hover:text-ys-700 transition block">
+                                031-334-1170
+                            </a>
+                            <div class="text-xs text-slate-400 mt-1">FAX: 031-334-1180</div>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-12 h-12 rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center text-xl mb-4 font-bold">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900">이메일 문의</h3>
+                            <p class="text-xs text-slate-500 mt-1 mb-4">지명원 요청 및 설계 도면 접수</p>
+                            <a href="mailto:ysys01170@naver.com" class="text-lg font-bold text-ys-900 hover:text-ys-700 transition break-all block">
+                                ysys01170@naver.com
+                            </a>
+                            <div class="text-xs text-slate-400 mt-1">접수 시 신속히 검토 후 회신</div>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-12 h-12 rounded-xl bg-teal-50 text-ys-800 flex items-center justify-center text-xl mb-4 font-bold">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900">본사</h3>
+                            <p class="text-xs text-slate-500 mt-1 mb-4">지사 없이 용인 본사에서 통합 운영</p>
+                            <div class="text-sm font-bold text-slate-800 leading-snug">
+                                경기도 용인시 처인구 성산로 327-19, 1층
+                            </div>
+                            <div class="text-xs text-slate-400 mt-1">방문 상담 환영 (지상 주차 가능)</div>
+                        </div>
+                    </div>
+
+                    <!-- Map and Inquiry Form Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                            <div class="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                                <div>
+                                    <h4 class="font-extrabold text-slate-900 text-lg">오시는 길</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">예승건설(주) 본사 위치 안내</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://map.kakao.com/link/search/경기도 용인시 처인구 성산로 327-19" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-slate-950 font-bold text-xs rounded-lg transition">
+                                        카카오맵
+                                    </a>
+                                    <a href="https://map.naver.com/v5/search/경기도 용인시 처인구 성산로 327-19" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg transition">
+                                        네이버지도
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="h-80 sm:h-96 bg-slate-100 relative flex items-center justify-center p-6 text-center overflow-hidden">
+                                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(#083e44 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                <div class="relative z-10 bg-white/95 backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-md max-w-sm">
+                                    <div class="w-12 h-12 bg-ys-800 text-white rounded-full flex items-center justify-center mx-auto mb-3 shadow text-lg">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <h5 class="text-base font-extrabold text-slate-900">예승건설 주식회사</h5>
+                                    <p class="text-xs font-semibold text-ys-800 mt-1">경기도 용인시 처인구 성산로 327-19, 1층</p>
+                                    <p class="text-[11px] text-slate-500 mt-2">
+                                        영동고속도로 용인IC 부근<br/>성산로 대로변 1층
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-slate-50 border-t border-slate-200 text-xs text-slate-600 leading-relaxed">
+                                <strong class="text-slate-800">대중교통 이용 시:</strong> 용인 경전철 에버라인 보평역 또는 둔전역 방면 버스 이용 후 성산로 하차.<br/>
+                                <strong class="text-slate-800">승용차 이용 시:</strong> 네비게이션에 <em>"경기도 용인시 처인구 성산로 327-19"</em> 검색.
+                            </div>
+                        </div>
+
+                        <!-- Inquiry Form Box -->
+                        <div class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-8 shadow-sm space-y-6">
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-lg">온라인 공사 의뢰 / 상담</h4>
+                                <p class="text-xs text-slate-500 mt-1">궁금하신 사항을 남겨주시면 신속히 연락드리겠습니다.</p>
+                            </div>
+
+                            <form onsubmit="handleInquirySubmit(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">담당자 성함 / 회사명 *</label>
+                                    <input type="text" required placeholder="예: 홍길동 (주식회사 OOO)" class="w-full text-xs px-3.5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-ys-700 focus:ring-1 focus:ring-ys-700">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">연락처 *</label>
+                                    <input type="tel" required placeholder="예: 010-0000-0000" class="w-full text-xs px-3.5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-ys-700 focus:ring-1 focus:ring-ys-700">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">문의 유형</label>
+                                    <select class="w-full text-xs px-3.5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-ys-700 focus:ring-1 focus:ring-ys-700 bg-white">
+                                        <option>토공 및 지반조성공사</option>
+                                        <option>철근콘크리트 및 교량공사</option>
+                                        <option>하천 및 호안공사</option>
+                                        <option>공사지명원 및 협력업체 등록 요청</option>
+                                        <option>기타 견적 문의</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">상담 내용 *</label>
+                                    <textarea required rows="4" placeholder="공사 현장 위치, 규모, 예정 공기 등 상세 내용을 기재해 주세요." class="w-full text-xs px-3.5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-ys-700 focus:ring-1 focus:ring-ys-700"></textarea>
+                                </div>
+                                <div id="inquirySuccess" class="hidden text-xs text-emerald-700 bg-emerald-50 p-3 rounded-xl font-semibold border border-emerald-200">
+                                    문의가 성공적으로 전송되었습니다. 검토 후 신속히 연락드리겠습니다.
+                                </div>
+                                <button type="submit" class="w-full py-3.5 bg-ys-900 hover:bg-ys-800 text-white font-bold text-sm rounded-xl transition shadow">
+                                    상담 문의 접수하기
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Photo Modal Dialog (확대 팝업 뷰어) -->
+    <div id="photoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative border border-slate-200">
+            <button onclick="closePhotoModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="max-h-[62vh] bg-slate-950 flex items-center justify-center">
+                <img id="modalImg" src="" alt="" class="max-h-[62vh] w-auto object-contain mx-auto">
+            </div>
+            <div class="p-6 sm:p-8 bg-white">
+                <div class="text-xs font-bold text-ys-700 mb-1" id="modalMeta">예승건설 시공 실적</div>
+                <h3 class="text-xl sm:text-2xl font-black text-slate-900" id="modalTitle">현장명</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed" id="modalDesc">상세 내용</p>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex justify-end">
+                    <button onclick="closePhotoModal()" class="px-5 py-2 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-10 flex-shrink-0">
+                            <!-- Footer CI Emblem SVG -->
+                            <svg viewBox="0 0 100 135" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 4 H84 V90 Q84 130 44 130 Q4 130 4 90 Z" fill="#0f766e"/>
+                                <path d="M84 25 C92 48 97 80 81 122 C88 108 93 84 90 40 Z" fill="#9bc33a"/>
+                                <path d="M22 45 L42 75 L42 100 H54 L54 75 L74 45 H60 L48 64 L36 45 Z" fill="#ffffff"/>
+                                <path d="M64 74 C57 68 45 69 45 78 C45 86 62 84 62 95 C62 104 51 106 43 103 C41 102 40 105 40 109 C48 115 70 114 70 94 C70 82 52 83 52 77 C52 72 60 73 64 76 Z" fill="#ffffff"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xl font-black text-white">예승건설<span class="text-xs font-normal text-teal-400 ml-1">주식회사</span></span>
+                            <span class="block text-[10px] tracking-widest text-slate-500 uppercase font-montserrat">YESEUNG CONSTRUCTION CO., LTD.</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                        예승건설(주)은 토공, 구조물, 교량, 하천 및 도시시설물 시공을 아우르는 전문건설 기업으로 고객 가치를 창조합니다.
+                    </p>
+                    <div class="text-xs text-teal-400 font-semibold">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> 단독 본사 책임경영 체계 (용인시 처인구)
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h5 class="text-xs font-bold text-white uppercase tracking-wider">주요 메뉴 바로가기</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><button onclick="navigateTo('home')" class="hover:text-teal-400 transition">홈 (Home)</button></li>
+                        <li><button onclick="navigateTo('about')" class="hover:text-teal-400 transition">회사소개 (About Us)</button></li>
+                        <li><button onclick="navigateTo('business')" class="hover:text-teal-400 transition">사업분야 (Business)</button></li>
+                        <li><button onclick="navigateTo('projects')" class="hover:text-teal-400 transition">시공실적 (Projects)</button></li>
+                        <li><button onclick="navigateTo('gallery')" class="hover:text-teal-400 transition">현장갤러리 (Gallery)</button></li>
+                        <li><button onclick="navigateTo('contact')" class="hover:text-teal-400 transition">공사문의 / 오시는길 (Contact)</button></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-4 space-y-2 text-xs text-slate-400">
+                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-3">본사 정보</h5>
+                    <p><strong class="text-slate-200">회사명:</strong> 예승건설 주식회사</p>
+                    <p><strong class="text-slate-200">대표이사:</strong> 김예지</p>
+                    <p><strong class="text-slate-200">사업자등록번호:</strong> 578-86-01170</p>
+                    <p><strong class="text-slate-200">본사 주소:</strong> 경기도 용인시 처인구 성산로 327-19, 1층</p>
+                    <p><strong class="text-slate-200">대표전화:</strong> 031-334-1170 &nbsp;|&nbsp; <strong class="text-slate-200">팩스:</strong> 031-334-1180</p>
+                    <p><strong class="text-slate-200">이메일:</strong> ysys01170@naver.com</p>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <div>&copy; 2026 예승건설 주식회사. All rights reserved.</div>
+                <div class="mt-2 sm:mt-0 flex gap-4">
+                    <span>지사 없는 단독 본사 체계</span>
+                    <span>·</span>
+                    <span>전문건설업 면허 보유</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT LOGIC (페이지 전환, 탭 제어, 모달, 갤러리 필터링) -->
+    <script>
+        // Multi-Page SPA Navigation Function
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => p.classList.remove('active'));
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                const indicator = btn.querySelector('.indicator');
+                if (btn.getAttribute('data-nav') === pageId) {
+                    btn.classList.add('text-ys-900');
+                    btn.classList.remove('text-slate-700');
+                    if (indicator) indicator.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('text-ys-900');
+                    btn.classList.add('text-slate-700');
+                    if (indicator) indicator.classList.add('hidden');
+                }
+            });
+
+            window.location.hash = pageId;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Subtab switcher inside 회사소개 (About Us)
+        function switchSubTab(subId) {
+            const panes = document.querySelectorAll('.subtab-pane');
+            panes.forEach(p => p.classList.remove('active'));
+
+            const targetPane = document.getElementById('subtab-' + subId);
+            if (targetPane) targetPane.classList.add('active');
+
+            const subButtons = document.querySelectorAll('.subtab-btn');
+            subButtons.forEach(btn => {
+                if (btn.getAttribute('data-subtab') === subId) {
+                    btn.classList.add('active', 'text-ys-900', 'border-ys-900');
+                    btn.classList.remove('text-slate-500', 'border-transparent');
+                } else {
+                    btn.classList.remove('active', 'text-ys-900', 'border-ys-900');
+                    btn.classList.add('text-slate-500', 'border-transparent');
+                }
+            });
+        }
+
+        // Mobile Menu Drawer Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function toggleMobileMenu() {
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Project Gallery Category Filter
+        const pfilterBtns = document.querySelectorAll('.pfilter-btn');
+        const projCards = document.querySelectorAll('.proj-card');
+
+        pfilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                pfilterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-ys-900', 'text-white');
+                    b.classList.add('bg-slate-100', 'text-slate-600');
+                });
+                btn.classList.add('active', 'bg-ys-900', 'text-white');
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-cat') === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Photo Lightbox Modal
+        const photoModal = document.getElementById('photoModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalMeta = document.getElementById('modalMeta');
+
+        function openPhotoModal(title, desc, meta, imgSrc) {
+            if (!photoModal) return;
+            modalTitle.textContent = title;
+            modalDesc.textContent = desc;
+            modalMeta.textContent = meta;
+            modalImg.src = imgSrc;
+            modalImg.alt = title;
+
+            photoModal.classList.remove('hidden');
+            photoModal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closePhotoModal() {
+            if (!photoModal) return;
+            photoModal.classList.add('hidden');
+            photoModal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        if (photoModal) {
+            photoModal.addEventListener('click', (e) => {
+                if (e.target === photoModal) closePhotoModal();
+            });
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePhotoModal();
+        });
+
+        // Contact Form Fake Submission
+        function handleInquirySubmit(e) {
+            e.preventDefault();
+            const successMsg = document.getElementById('inquirySuccess');
+            if (successMsg) successMsg.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => {
+                if (successMsg) successMsg.classList.add('hidden');
+            }, 6000);
+        }
+
+        // Initial Routing on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && ['home', 'about', 'business', 'projects', 'gallery', 'contact'].includes(hash)) {
+                navigateTo(hash);
+            } else {
+                navigateTo('home');
+            }
+        });
+    </script>
+</body>
+</html>
